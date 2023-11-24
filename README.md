@@ -1,3 +1,1 @@
 # dds-deploy
-adasda
-dadasdas
