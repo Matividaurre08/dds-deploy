@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: ddsdeploy
-          image: ddsdeploy
+          image: mvidaurre08/dds-deploy:latest
           ports:
             - containerPort: 8080
           env:
