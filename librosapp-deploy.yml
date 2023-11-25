@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+spec:
+  selector:
+    app: ddsdeploy
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ddsdeploy
+  template:
+    metadata:
+      labels:
+        app: ddsdeploy
+    spec:
+      containers:
+        - name: ddsdeploy
+          image: ddsdeploy
+          ports:
+            - containerPort: 8080
+          env:
+            - name: hibernate_hbm2ddl_auto
+              value: "create"
+            - name: javax_persistence_jdbc_driver
+              value: "org.postgresql.Driver"
+            - name: javax_persistence_jdbc_password
+              value: "123"
+            - name: javax_persistence_jdbc_url
+              value: "jdbc:postgresql://postgres-service/dblibros"
+            - name: javax_persistence_jdbc_user
+              value: "postgres"
