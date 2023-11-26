@@ -31,13 +31,13 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: hibernate_hbm2ddl_auto
+            - name: hibernate__hbm2ddl__auto
               value: "create"
-            - name: javax_persistence_jdbc_driver
+            - name: javax__persistence__jdbc__driver
               value: "org.postgresql.Driver"
-            - name: javax_persistence_jdbc_password
+            - name: javax__persistence__jdbc__password
               value: "123"
-            - name: javax_persistence_jdbc_url
+            - name: javax__persistence__jdbc__url
               value: "jdbc:postgresql://postgres-service/dblibros"
-            - name: javax_persistence_jdbc_user
+            - name: javax__persistence__jdbc__user
               value: "postgres"
