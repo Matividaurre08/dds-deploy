@@ -5,11 +5,18 @@ node {
   }
 
   stage('SonarQube Analysis') {
-    def mvn = tool 'mvn';
-    withSonarQubeEnv() {
-      sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=tpCredicoop -Dsonar.projectName='tpCredicoop'"
-    }
-  }
+            steps {
+                script {
+                    // Definir la configuración de SonarQube
+                    def scannerHome = tool 'SonarQube';
+                    def scannerScript = "${scannerHome}/bin/sonar-scanner"; // Ruta al ejecutable de SonarScanner
+
+                    withSonarQubeEnv('SonarQube_Server') {
+                        sh "${scannerScript} -Dsonar.projectKey=tpCredicoop -Dsonar.projectName='tpCredicoop'"
+                    }
+                }
+            }
+        }
   
   stage('Pusheo la nueva imagen a dockerhub y despliego con minikube') {
     sshagent(['claveSSH']) {
